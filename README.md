@@ -122,13 +122,9 @@ streamlit run app.py
 
 # 👨‍💻 Author
 
-**Sharan Cherry**
+**Valurothu Sharan**
 
 Computer Science Engineering Student
 Interested in AI, Machine Learning, and Full-Stack Development.
 
 ---
-
-# ⭐ Support
-
-If you like this project, consider giving it a **star ⭐ on GitHub**.
