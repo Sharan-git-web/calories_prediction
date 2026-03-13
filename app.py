@@ -1,9 +1,11 @@
 import streamlit as st
 import numpy as np
 import pickle
+import os
 
 # Load trained model
-model = pickle.load(open("calories_model.pkl", "rb"))
+model_path = os.path.join(os.path.dirname(__file__), "calories_model.pkl")
+model = pickle.load(open(model_path, "rb"))
 
 # App title
 st.title("🔥 Calories Burn Prediction App")
@@ -27,14 +29,12 @@ with col2:
     heart_rate = st.number_input("Heart Rate", value=110.0)
     body_temp = st.number_input("Body Temperature", value=40.0)
 
-# Convert gender to numeric
-if gender == "Male":
-    gender = 0
-else:
-    gender = 1
+# Convert gender
+gender = 0 if gender == "Male" else 1
 
 # BMI Calculation
 bmi = weight / ((height/100) ** 2)
+
 st.write(f"### 🧮 Your BMI: {bmi:.2f}")
 
 if bmi < 18.5:
@@ -46,18 +46,16 @@ elif bmi < 30:
 else:
     st.error("Obese")
 
-# Prediction button
+# Prediction
 if st.button("Predict Calories Burned"):
 
     input_data = np.array([[gender, age, height, weight, duration, heart_rate, body_temp]])
 
     prediction = model.predict(input_data)
-
     calories = prediction[0]
 
     st.success(f"🔥 Predicted Calories Burned: {calories:.2f}")
 
-    # Workout intensity feedback
     if calories < 100:
         st.info("Light Workout 🔵")
     elif calories < 250:
